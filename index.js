@@ -225,4 +225,4 @@ client.on('raw', event => {
     }   
 });
 });
-client.login(config.token);
+client.login(process.env.BOT_TOKEN);
