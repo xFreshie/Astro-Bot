@@ -169,48 +169,28 @@ client.on("message", async message => {
     }, ms(mutetime));
 
 }
-if(command === "pages") {
-  let pages = ['This is page one!', 'Second page', 'Third', 'You can add pages', 'All you need to do is add another item in the array', '**Supports markdown and regular chat description properties**']; 
-  let page = 1; 
- 
-  const embed = new Discord.MessageEmbed() 
-    .setColor(0xffffff)
-    .setFooter(`Page ${page} of ${pages.length}`) 
-    .setDescription(pages[page-1])
- 
-  message.channel.send(embed).then(msg => { 
-   
-    msg.react('⏪').then( r => { 
-      msg.react('⏩') 
-     
-      const backwardsFilter = (reaction, user) => reaction.emoji.name === '⏪' && user.id === message.author.id;
-      const forwardsFilter = (reaction, user) => reaction.emoji.name === '⏩' && user.id === message.author.id; 
-     
-      const backwards = msg.createReactionCollector(backwardsFilter, { time: 60000 }); 
-      const forwards = msg.createReactionCollector(forwardsFilter, { time: 60000 }); 
-     
-      
-      backwards.on('collect', r => { 
-        if (page === 1) return; 
-        page--; 
-        embed.setDescription(pages[page-1]); 
-        embed.setFooter(`Page ${page} of ${pages.length}`); 
-        msg.edit(embed) 
-      })
-     
-      forwards.on('collect', r => { 
-        if (page === pages.length) return; 
-        page++; 
-        embed.setDescription(pages[page-1]); 
-        embed.setFooter(`Page ${page} of ${pages.length}`); 
-        msg.edit(embed) 
-      })
-   
-    })
- 
-  })
- 
-}
+if(command === "poll") {
+  if (!message.member.hasPermission('MANAGE_GUILD') && message.author.id !== '357555941215961099') return message.channels.send('Sorry, you don\'t have permission to create poll!').then(msg => msg.delete({timeout: 10000}));
+  if (!args.join(' ')) return message.channel.send('Usage: poll <title>').then(msg => msg.delete({timeout: 10000}));
+  
+  const embed = new Discord.MessageEmbed()
+    .setTitle(args.join(' '))
+    .setFooter('React to vote on Poll!')
+    .setColor('#7289DA')
+    const pollTitle = await message.channel.send({ embed });
+      await pollTitle.react(`ðŸ‘`);
+      await pollTitle.react(`ðŸ‘Ž`);
+  
+    const filter = (reaction) => reaction.emoji.name === 'ðŸ‘';
+    const collector = pollTitle.createReactionCollector(filter, { time: 15000 });
+      collector.on('collect', r => console.log(`Collected ${r.emoji.name}`));
+      collector.on('end', collected => console.log(`Collected ${collected.size} items`));
+  
+    const filter1 = (reaction) => reaction.emoji.name === 'ðŸ‘Ž';
+    const collector1 = pollTitle.createReactionCollector(filter1, { time: 15000 });
+      collector1.on('collect', r => console.log(`Collected ${r.emoji.name}`));
+      collector1.on('end', collected => console.log(`Collected ${collected.size} items`));
+};
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
 let initialMessage = `**React to the messages below to receive the verified role, this is in case of spam bots or stuff. If you would like to chat in other channels, simply react to the message.**`;
