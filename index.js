@@ -237,6 +237,7 @@ if (validUnlocks.includes(time)) {
                 });
         });
 }
+}
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
 let initialMessage = `**React to the messages below to receive the verified role, this is in case of spam bots or stuff. If you would like to chat in other channels, simply react to the message.**`;
