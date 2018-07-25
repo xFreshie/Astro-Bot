@@ -169,28 +169,30 @@ client.on("message", async message => {
     }, ms(mutetime));
 
 }
-if(command === "poll") {
-  if (!message.member.hasPermission('MANAGE_GUILD') && message.author.id !== '357555941215961099') return message.channels.send('Sorry, you don\'t have permission to create poll!').then(msg => msg.delete({timeout: 10000}));
-  if (!args.join(' ')) return message.channel.send('Usage: poll <title>').then(msg => msg.delete({timeout: 10000}));
-  
-  const embed = new Discord.MessageEmbed()
-    .setTitle(args.join(' '))
-    .setFooter('React to vote on Poll!')
-    .setColor('#7289DA')
-    const pollTitle = await message.channel.send({ embed });
-      await pollTitle.react(`ðŸ‘`);
-      await pollTitle.react(`ðŸ‘Ž`);
-  
-    const filter = (reaction) => reaction.emoji.name === 'ðŸ‘';
-    const collector = pollTitle.createReactionCollector(filter, { time: 15000 });
-      collector.on('collect', r => console.log(`Collected ${r.emoji.name}`));
-      collector.on('end', collected => console.log(`Collected ${collected.size} items`));
-  
-    const filter1 = (reaction) => reaction.emoji.name === 'ðŸ‘Ž';
-    const collector1 = pollTitle.createReactionCollector(filter1, { time: 15000 });
-      collector1.on('collect', r => console.log(`Collected ${r.emoji.name}`));
-      collector1.on('end', collected => console.log(`Collected ${collected.size} items`));
-};
+if(command === "serverinfo") {
+  let online = message.guild.members.filter(member => member.user.presence.status !== 'offline');
+  let day = message.guild.createdAt.getDate()
+  let month = 1 + message.guild.createdAt.getMonth()
+  let year = message.guild.createdAt.getFullYear()
+   let sicon = message.guild.iconURL;
+   let serverembed = new Discord.RichEmbed()
+   .setAuthor(message.guild.name, sicon)
+   .setFooter(`Server Created • ${day}.${month}.${year}`)
+   .setColor("#7289DA")
+   .setThumbnail(sicon)
+   .addField("ID", message.guild.id, true)
+   .addField("Name", message.guild.name, true)
+   .addField("Owner", message.guild.owner.user.tag, true)
+   .addField("Region", message.guild.region, true)
+   .addField("Channels", message.guild.channels.size, true)
+   .addField("Members", message.guild.memberCount, true)
+   .addField("Humans", message.guild.memberCount - message.guild.members.filter(m => m.user.bot).size, true)
+   .addField("Bots", message.guild.members.filter(m => m.user.bot).size, true)
+   .addField("Online", online.size, true)
+   .addField("Roles", message.guild.roles.size, true);
+   message.channel.send(serverembed);
+
+}
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
 let initialMessage = `**React to the messages below to receive the verified role, this is in case of spam bots or stuff. If you would like to chat in other channels, simply react to the message.**`;
