@@ -22,7 +22,9 @@
     
     "ms": "2.1.1",
     
-    "quick.hook": "1.4.2"
+    "quick.hook": "1.4.2",
+    
+    "superagent": "3.8.3"
 
   }
 
