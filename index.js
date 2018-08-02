@@ -334,6 +334,9 @@ if(command === "announce") {
 	   
 }
 if(command === "help") {
+if(message.channel.type === "dm") {
+message.author.send("**Please use that command in the asteario server.**");
+}
    let sicon = message.guild.iconURL;
    let help1 = new Discord.RichEmbed()
    .setAuthor('Main Commands', sicon)
