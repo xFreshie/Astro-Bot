@@ -328,7 +328,7 @@ if(command === "announce") {
 		   .setFooter("An announcment made at ")
 		   .setTimestamp()
       send(message.channel, embed, {
-        name: 'Announcment'
+        name: 'Announcment',
         icon: message.guild.iconURL
     });
 	   
