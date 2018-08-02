@@ -637,15 +637,6 @@ function play(guild, song) {
         volval = `────○ :loud_sound:⠀`
     }
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-   var NowEmbed = new Discord.RichEmbed()
-   .setColor("990033")
-   .addField(`=========================================================`,`
-ɴᴏᴡ ᴘʟᴀʏɪɴɢ: **${song.title}**
-:white_circle:─────────────────────────────────────────── 
-◄◄⠀▐▐ ⠀►►⠀⠀　　${volval}    　　 :gear: ❐ ⊏⊐ 
-========================================================= `)
-   .setFooter("Music")
-    serverQueue.textChannel.send(NowEmbed);
 });
 // Music
 const yourID = "427858680550260736";
