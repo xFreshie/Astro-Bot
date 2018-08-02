@@ -317,7 +317,6 @@ message.delete({timeout: 1000});
 if(command === "announce") {
        if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("You need the ADMINISTRATOR permission to run this comamnd!")
 		   const color = args[0]
-		   let title = args[0];
 		   const text = args.slice(1).join(" ");
 		   const author = message.author;
 		   if (text.length < 1) return message.channel.send("Can not announce nothing");
@@ -329,7 +328,7 @@ if(command === "announce") {
 		   .setFooter("An announcment made at ")
 		   .setTimestamp()
       send(message.channel, embed, {
-        name: 'Announcment: ' + title,
+        name: 'Announcment'
         icon: message.guild.iconURL
     });
 	   
