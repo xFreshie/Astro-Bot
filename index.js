@@ -334,17 +334,43 @@ if(command === "announce") {
 	   
 }
 if(command === "help") {
-let sicon = message.guild.iconURL;
-let serverembed = new Discord.RichEmbed()
-.setTitle("Asterio Bot Commands")
-.setAuthor("Asteario Bot", sicon)
-.setColor("RANDOM")
-.setThumbnail(sicon)
-.addField("🏷️ Main Commands", "a!ping", "a!help", "a!serverinfo")
-.addField("🔨 Admin & Moderation Commands", "a!ban", "a!warn", "a!kick", "a!mute", "a!say", "a!poll", "a!announce", "a!purge")
-.addField(`<a:fun:474683469239418900> Fun Commands`, "a!quiz", "a!meme")
-.addField("💵 Economy System", "a!work", "a!daily", "a!shop", "a!bal");
-message.channel.send(serverembed);
+   let sicon = message.guild.iconURL;
+   let help1 = new Discord.RichEmbed()
+   .setAuthor('Main Commands', sicon)
+   .setFooter(`Provided by astro`)
+   .setColor("#7289DA")
+   .addField("a!help", "Shows you the help page")
+   .addField("a!ping", "Shows you the ping of the bot")
+   .addField("a!serverinfo", "Shows you the info about the server")
+   message.author.send(help1);
+   let help2 = new Discord.RichEmbed()
+   .setAuthor('🔨 Admin & Moderation Commands')
+   .setFooter(`Provided by astro`)
+   .setColor("#7289DA")
+   .addField("a!ban", "Bans the mentioned person with the given reason.")
+   .addField("a!warn", "Warns the mentioned person with the given reason.")
+   .addField("a!mute", "Mutes the mentioned person with the given reason.")
+   .addField("a!purge", "Removes the given amount of messages from the channel.")
+   .addField("a!kick", "Kicks the mentioned person with the given reason.")
+   .addField("a!announce", "Announces the message in the channel.")
+   .addField("a!poll", "Creates a poll with the given question.")
+   message.author.send(help2);
+   let help3 = new Discord.RichEmbed()
+   .setAuthor(`<a:fun:474683469239418900> Fun Commands`)
+   .setFooter(`Provided by astro`)
+   .setColor("#7289DA")
+   .addField("a!quiz", "Starts a quiz game.")
+   .addField("a!meme", "Sends a dank meme.")
+   message.author.send(help3);
+   let help4 = new Discord.RichEmbed()
+   .setAuthor("💵 Economy System [In Progress]")
+   .setFooter(`Provided by astro`)
+   .setColor("#7289DA")
+   .addField("a!daily", "Claims the daily rewards")
+   .addField("a!shop", "Opens up the shop menu.")
+   .addField("a!work", "Works to earn money.")
+   .addField("a!balance", "Checks your balance.")
+   message.author.send(help4);
 }
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
