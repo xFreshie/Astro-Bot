@@ -343,8 +343,9 @@ if(command === "help") {
    .addField("a!ping", "Shows you the ping of the bot")
    .addField("a!serverinfo", "Shows you the info about the server")
    message.author.send(help1);
+	
    let help2 = new Discord.RichEmbed()
-   .setAuthor('🔨 Admin & Moderation Commands')
+   .setAuthor(':tools: Admin & Moderation Commands')
    .setFooter(`Provided by astro`)
    .setColor("#7289DA")
    .addField("a!ban", "Bans the mentioned person with the given reason.")
@@ -355,15 +356,17 @@ if(command === "help") {
    .addField("a!announce", "Announces the message in the channel.")
    .addField("a!poll", "Creates a poll with the given question.")
    message.author.send(help2);
+	
    let help3 = new Discord.RichEmbed()
-   .setAuthor(`<a:fun:474683469239418900> Fun Commands`)
+   .setAuthor(':tada: Fun Commands')
    .setFooter(`Provided by astro`)
    .setColor("#7289DA")
    .addField("a!quiz", "Starts a quiz game.")
    .addField("a!meme", "Sends a dank meme.")
    message.author.send(help3);
+	
    let help4 = new Discord.RichEmbed()
-   .setAuthor("💵 Economy System [In Progress]")
+   .setAuthor(":money_with_wings: Economy System [In Progress]")
    .setFooter(`Provided by astro`)
    .setColor("#7289DA")
    .addField("a!daily", "Claims the daily rewards")
