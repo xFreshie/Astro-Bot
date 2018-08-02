@@ -300,6 +300,20 @@ const options = {
                                 })
   }
 }
+if(command === "poll") {
+if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`Sorry, you don't have enough permissions.`);
+if(!args[0]) return message.channel.send(`Proper Usage: -poll (question)`);
+const embed = new Discord.RichEmbed()
+.setColor('RANDOM')
+.setFooter(`Please react to the following to vote.`)
+.setDescription(args.join(' '))
+.setTitle(`Poll by ${message.author.username}`);
+let msg = await message.channel.send(embed);
+await msg.react('✅');
+await msg.react('❌');
+message.delete({timeout: 1000});
+}
+
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
 let initialMessage = `**React to the messages below to receive the verified role, this is in case of spam bots or stuff. If you would like to chat in other channels, simply react to the message.**`;
