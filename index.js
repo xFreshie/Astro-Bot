@@ -337,7 +337,7 @@ if(command === "help") {
 let sicon = message.guild.iconURL;
 let serverembed = new Discord.RichEmbed()
 .setTitle("Asterio Bot Commands")
-.setAuthor("Asteario Bot, sicon)
+.setAuthor("Asteario Bot", sicon)
 .setColor("RANDOM")
 .setThumbnail(sicon)
 .addField("🏷️ Main Commands", "a!ping", "a!help", "a!serverinfo")
