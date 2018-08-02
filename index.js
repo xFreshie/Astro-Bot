@@ -334,15 +334,7 @@ if(command === "announce") {
 	   
 }
 if(command === "help") {
-    let help = new Discord.RichEmbed()
-        .setAuthor("List of Commands")
-        .setColor(0x703817)
-        .addField("Main Commands", "a!ping", "a!help", "a!serverinfo")
-        .addField("Moderation and Admin Commands", "a!ban", "a!warn", "a!kick", "a!mute", "a!purge", "a!say", "a!announce", "a!lockdown", "a!poll")
-        .addField("Fun Commands", "a!meme", "a!quiz")
-    	.addField("Economy Commands", "a!daily", "a!shop", "a!work")
-    	.addField("NOTE: Economy System is in development right now", "More commands soon!");
-    message.channel.send(help)
+message.channel.send("**Main Commands**\na!ping\na!help\na!serverinfo")
 }
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
