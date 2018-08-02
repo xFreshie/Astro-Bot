@@ -279,7 +279,7 @@ const options = {
    .setAuthor('Quiz')
    .setFooter('Provided by asteario')
    .setColor("RANDOM")
-   .setThumbnail(`https://i1.wp.com/www.myandroidsolutions.com/wp-content/uploads/2016/12/Quiz-Time.png`);
+   .setThumbnail(`https://i1.wp.com/www.myandroidsolutions.com/wp-content/uploads/2016/12/Quiz-Time.png`)
    .addField(item.q);
   await message.channel.send(serverembed);
   
