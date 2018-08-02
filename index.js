@@ -334,7 +334,17 @@ if(command === "announce") {
 	   
 }
 if(command === "help") {
-message.channel.send("**Main Commands**\na!ping\na!help\na!serverinfo")
+let sicon = message.guild.iconURL;
+let serverembed = new Discord.RichEmbed()
+.setTitle("Asterio Bot Commands")
+.setAuthor("Asteario Bot, sicon)
+.setColor("RANDOM")
+.setThumbnail(sicon)
+.addField("🏷️ Main Commands", "a!ping", "a!help", "a!serverinfo")
+.addField("🔨 Admin & Moderation Commands", "a!ban", "a!warn", "a!kick", "a!mute", "a!say", "a!poll", "a!announce", "a!purge")
+.addField(`<a:fun:474683469239418900> Fun Commands`, "a!quiz", "a!meme")
+.addField("💵 Economy System", "a!work", "a!daily", "a!shop", "a!bal");
+message.channel.send(serverembed);
 }
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
