@@ -6,6 +6,7 @@ const Discord = require("discord.js");
 // this is what we're refering to. Your client.
 const client = new Discord.Client();
 const ms = require("ms");
+const send = require("quick.hook");
 
 // Here we load the config.json file that contains our token and our prefix values. 
 const config = require("./config.json");
@@ -313,7 +314,26 @@ await msg.react('✅');
 await msg.react('❌');
 message.delete({timeout: 1000});
 }
-
+if(command === "announce") {
+       if (!message.member.hasPermission("ADMINISTRATOR")) return message.channel.send("You need the ADMINISTRATOR permission to run this comamnd!")
+		   const color = args[0]
+		   let title = args[0];
+		   const text = args.slice(1).join(" ");
+		   const author = message.author;
+		   if (text.length < 1) return message.channel.send("Can not announce nothing");
+		   //const colour = args.slice(2).join("");
+		   const embed = new Discord.RichEmbed()
+		   .setColor(message.guild.me.displayHexColor)
+		   .setThumbnail(message.guild.iconURL)
+		   .setDescription("**Announced by: " + message.author + "**\n\n" + text + "\n")
+		   .setFooter("An announcment made at ")
+		   .setTimestamp()
+      send(message.channel, embed, {
+        name: 'Announcment: ' + title,
+        icon: message.guild.iconURL
+    });
+	   
+}
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
 let initialMessage = `**React to the messages below to receive the verified role, this is in case of spam bots or stuff. If you would like to chat in other channels, simply react to the message.**`;
