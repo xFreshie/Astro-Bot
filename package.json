@@ -24,7 +24,11 @@
     
     "quick.hook": "1.4.2",
     
-    "superagent": "3.8.3"
+    "superagent": "3.8.3",
+    
+    "ytdl-core": "0.22.0",
+    
+    "simple-youtube-api": "0.22.0"
 
   }
 
