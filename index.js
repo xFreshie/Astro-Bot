@@ -535,7 +535,7 @@ ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 	return undefined;
 
       }
-}
+})
 async function handleVideo(video, message, voiceChannel, playlist = false) {
 	var serverQueue = queue.get(message.guild.id);
 	console.log(video);
