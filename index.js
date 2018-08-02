@@ -7,6 +7,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const ms = require("ms");
 const send = require("quick.hook");
+const superagent = require("superagent");
 
 // Here we load the config.json file that contains our token and our prefix values. 
 const config = require("./config.json");
@@ -334,7 +335,7 @@ if(command === "announce") {
 	   
 }
 if(command === "help") {
-message.react(client.emojis.get("474683469239418900"))
+message.react(client.emojis.get("474698341763252225"))
     .then(reaction => console.log(typeof reaction));
 if(message.channel.type === "dm") {
 message.author.send("**Please use that command in the asteario server.**");
@@ -371,6 +372,8 @@ message.author.send("**Please use that command in the asteario server.**");
    .setColor("#7289DA")
    .addField("a!quiz", "Starts a quiz game.")
    .addField("a!meme", "Sends a dank meme.")
+   .addField("a!cat", "Sends a random cat image.")
+   .addField("a!dog", "Sends a random dog image.")
    message.author.send(help3);
 	
    let help4 = new Discord.RichEmbed()
@@ -382,6 +385,40 @@ message.author.send("**Please use that command in the asteario server.**");
    .addField("a!work", "Works to earn money.")
    .addField("a!balance", "Checks your balance.")
    message.author.send(help4);
+}
+if(command === "cat") {
+  let{body} = await superagent
+  .get(`http://aws.random.cat/meow`);
+
+  let catembed = new Discord.RichEmbed()
+  .setColor("#7289DA")
+  .setTitle("Meow 🐱")
+  .setImage(body.file);
+
+  message.channel.send(catembed);
+
+}
+if(command === "dog") {
+    const { body } = await superagent
+    .get('https://dog.ceo/api/breeds/image/random');
+    const embed = new Discord.RichEmbed()
+    .setColor(0x954D23)
+    .setTitle("Woof :dog2:")
+    .setImage(body.message)
+    message.channel.send({embed})
+    
+
+}
+if(command === "meme") {
+  let{body} = await superagent
+  .get(`https://api-to.get-a.life/meme`);
+
+  let me = new MessageEmbed()
+  .setColor("#7289DA")
+  .setTitle("lmAO!, funny.. right?")
+  .setImage(body.url);
+
+  message.channel.send(me);
 }
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
