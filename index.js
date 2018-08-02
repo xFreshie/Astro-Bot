@@ -337,6 +337,9 @@ if(command === "help") {
 if(message.channel.type === "dm") {
 message.author.send("**Please use that command in the asteario server.**");
 }
+   let emote1 = `http://www.emoji.co.uk/files/emoji-one/objects-emoji-one/1895-hammer-and-wrench.png`
+   let emote2 = `https://media.giphy.com/media/Pwno8LO6ZWJ0c/giphy.gif`
+   let emote3 = `https://i.gifer.com/23x6.gif`
    let sicon = message.guild.iconURL;
    let help1 = new Discord.RichEmbed()
    .setAuthor('Main Commands', sicon)
@@ -348,7 +351,7 @@ message.author.send("**Please use that command in the asteario server.**");
    message.author.send(help1);
 	
    let help2 = new Discord.RichEmbed()
-   .setAuthor(':tools: Admin & Moderation Commands')
+   .setAuthor('Admin & Moderation Commands', emote1)
    .setFooter(`Provided by astro`)
    .setColor("#7289DA")
    .addField("a!ban", "Bans the mentioned person with the given reason.")
@@ -361,7 +364,7 @@ message.author.send("**Please use that command in the asteario server.**");
    message.author.send(help2);
 	
    let help3 = new Discord.RichEmbed()
-   .setAuthor(':tada: Fun Commands')
+   .setAuthor("Fun Commands", emote2)
    .setFooter(`Provided by astro`)
    .setColor("#7289DA")
    .addField("a!quiz", "Starts a quiz game.")
@@ -369,7 +372,7 @@ message.author.send("**Please use that command in the asteario server.**");
    message.author.send(help3);
 	
    let help4 = new Discord.RichEmbed()
-   .setAuthor(":money_with_wings: Economy System [In Progress]")
+   .setAuthor("Economy System [In Progress]", emote3)
    .setFooter(`Provided by astro`)
    .setColor("#7289DA")
    .addField("a!daily", "Claims the daily rewards")
