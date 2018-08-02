@@ -337,11 +337,11 @@ if(command === "help") {
     let help = new Discord.RichEmbed()
         .setAuthor("List of Commands")
         .setColor(0x703817)
-        .addField("Main Commands", "a!ping", "a!help", "a!serverinfo", true)
-        .addField("Moderation and Admin Commands", "a!ban", "a!warn", "a!kick", "a!mute", "a!purge", "a!say", "a!announce", "a!lockdown", "a!poll", true)
-        .addField("Fun Commands", "a!meme", "a!quiz", true)
-    	.addField("Economy Commands", "a!daily", "a!shop", "a!work", true)
-    	.addField("NOTE: Economy System is in development right now", "More commands soon!", true);
+        .addField("Main Commands", "a!ping", "a!help", "a!serverinfo")
+        .addField("Moderation and Admin Commands", "a!ban", "a!warn", "a!kick", "a!mute", "a!purge", "a!say", "a!announce", "a!lockdown", "a!poll")
+        .addField("Fun Commands", "a!meme", "a!quiz")
+    	.addField("Economy Commands", "a!daily", "a!shop", "a!work")
+    	.addField("NOTE: Economy System is in development right now", "More commands soon!");
     message.channel.send(help)
 }
 const yourID = "427858680550260736";
