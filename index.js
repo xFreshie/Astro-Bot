@@ -334,7 +334,7 @@ if(command === "announce") {
 	   
 }
 if(command === "help") {
-message.react(client.emojis.get("fun"))
+message.react(client.emojis.get("474683469239418900"))
     .then(reaction => console.log(typeof reaction));
 if(message.channel.type === "dm") {
 message.author.send("**Please use that command in the asteario server.**");
