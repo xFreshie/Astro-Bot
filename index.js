@@ -413,7 +413,7 @@ if(command === "meme") {
   let{body} = await superagent
   .get(`https://api-to.get-a.life/meme`);
 
-  let me = new MessageEmbed()
+  let me = new Discord.RichEmbed()
   .setColor("#7289DA")
   .setTitle("lmAO!, funny.. right?")
   .setImage(body.url);
