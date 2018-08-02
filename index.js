@@ -431,7 +431,7 @@ if(command === "meme") {
 const searchString = args.slice(1).join(' ');
 var url = args[1] ? args[1].replace(/<(.+)>/g, '$1') : '';
 const serverQueue = queue.get(msg.guild.id);
-      case "mplay":
+if(command === "play") {
     var voiceChannel = message.member.voiceChannel;
 		if (!voiceChannel) return message.channel.send('I\'m sorry but you need to be in a voice channel to play music!');
 		var permissions = voiceChannel.permissionsFor(message.client.user);
@@ -481,49 +481,49 @@ Please provide a value to select one of the search results ranging from 1-10.
 			}
 			return handleVideo(video, message, voiceChannel);
 		}
-        break;
-      case "mskip":
+}
+if(command === "skip") {
 		if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
 		if (!serverQueue) return message.channel.send('There is nothing playing that I could skip for you.');
 		serverQueue.connection.dispatcher.end('Skip command has been used!');
 		return undefined;
-        break;
-      case "mstop":
+}
+if(command === "stop") {
 		if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
 		if (!serverQueue) return message.channel.send('There is nothing playing that I could stop for you.');
 		serverQueue.songs = [];
 		serverQueue.connection.dispatcher.end('Stop command has been used!');
 		return undefined;
-break;
-      case "mvolume":
+}
+if(command === "volume") {
 		if (!message.member.voiceChannel) return message.channel.send('You are not in a voice channel!');
 		if (!serverQueue) return message.channel.send('There is nothing playing.');
 		if (!args[1]) return message.channel.send(`The current volume is: **${serverQueue.volume}**`);
 		serverQueue.volume = args[1];
 		serverQueue.connection.dispatcher.setVolumeLogarithmic(args[1] / 5);
 		return message.channel.send(`I set the volume to: **${args[1]}**`);
-break;
-      case "mnp":
+}
+      if(command === "np") {
 		if (!serverQueue) return message.channel.send('There is nothing playing.');
 		return message.channel.send(`🎶 Now playing: **${serverQueue.songs[0].title}**`);
-break;
-      case "mqueue":
+      }
+if(command === "queue") {
 		if (!serverQueue) return message.channel.send('There is nothing playing.');
 		return message.channel.send(`
 __**Song queue:**__
 ${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
 **Now playing:** ${serverQueue.songs[0].title}
 		`);
-break;
-      case "mpause":
+}
+      if(command === "pause") {
 		if (serverQueue && serverQueue.playing) {
 			serverQueue.playing = false;
 			serverQueue.connection.dispatcher.pause();
 			return message.channel.send('⏸ Paused the music for you!');
 		}
 		return message.channel.send('There is nothing playing.');
-break;
-      case "mresume":
+      }
+      if(command === "resume") {
 		if (serverQueue && !serverQueue.playing) {
 			serverQueue.playing = true;
 			serverQueue.connection.dispatcher.resume();
@@ -533,7 +533,8 @@ break;
 	
 
 	return undefined;
-break;
+
+      }
 }
 async function handleVideo(video, message, voiceChannel, playlist = false) {
 	var serverQueue = queue.get(message.guild.id);
