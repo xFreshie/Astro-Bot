@@ -275,7 +275,14 @@ const options = {
 };
   
   const item = quiz[Math.floor(Math.random() * quiz.length)];
-  await message.channel.send(item.q);
+    let serverembed = new Discord.RichEmbed()
+   .setAuthor('Quiz')
+   .setFooter('Provided by asteario')
+   .setColor("RANDOM")
+   .setThumbnail(`https://i1.wp.com/www.myandroidsolutions.com/wp-content/uploads/2016/12/Quiz-Time.png`);
+   .addField(item.q);
+  await message.channel.send(serverembed);
+  
   try {
     const collected = await message.channel.awaitMessages(answer => item.a.includes(answer.content.toLowerCase()), options);
     const winnerMessage = collected.first();
