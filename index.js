@@ -458,7 +458,7 @@ fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
 if(command === "balance") {
 	message.channel.send({embed:{
 		title: "Bank Account",
-		color: RANDOM,
+		color: 0xF1C40F,
 		fields: [{
 			name:"Account Holder",
 			value:message.author.username,
