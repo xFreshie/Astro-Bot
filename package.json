@@ -30,7 +30,9 @@
     
     "simple-youtube-api": "5.0.2",
     
-    "file-system": "2.2.2"
+    "file-system": "2.2.2",
+    
+    "moment": "2.22.2"
 
   }
 
