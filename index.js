@@ -12,7 +12,7 @@ const fs = require("fs");
 const economy = require('discord-eco');
 const moment = require("moment");
 
-const items = JSON.parse(fs.readFileSync('Storage\items.json', 'utf8'));
+const items = JSON.parse(fs.readFileSync('items.json', 'utf8'));
 // Here we load the config.json file that contains our token and our prefix values. 
 const config = require("./config.json");
 // config.token contains the bot's token
