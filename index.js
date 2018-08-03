@@ -386,7 +386,7 @@ message.author.send("**Please use that command in the asteario server.**");
    .addField("a!daily", "Claims the daily rewards")
    .addField("a!shop", "Opens up the shop menu.")
    .addField("a!work", "Works to earn money.")
-   .addField("a!balance", "Checks your balance.")
+   .addField("a!bal", "Checks your balance.")
    message.author.send(help4);
 }
 if(command === "cat") {
@@ -568,7 +568,7 @@ if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.sen
         });
 
     }
-if(command === "balance" || === "bal" || === "money") {
+if(command === "bal") {
         economy.fetchBalance(message.author.id + message.guild.id).then((i) => { // economy.fetchBalance grabs the userID, finds it, and puts the data with it into i.
             // Lets use an embed for This
             const embed = new Discord.RichEmbed()
