@@ -446,7 +446,7 @@ if(command === "report") {
 	message.channel.send("User successfuly reported.");
 }
 let sender = message.author;
-if (bot.user.id === message.author.id) { return }
+if (client.user.id === message.author.id) { return }
 //
 if (!userData[sender.id + message.guild.id]) userData[sender.id + message.guild.id] = {}
 if (!userData[sender.id + message.guild.id].money) userData[sender.id + message.guild.id].money = 100;
