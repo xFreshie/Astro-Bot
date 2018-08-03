@@ -452,6 +452,7 @@ if (client.user.id === message.author.id) { return }
 if (!userData[sender.id + message.guild.id]) userData[sender.id + message.guild.id] = {}
 if (!userData[sender.id + message.guild.id].money) userData[sender.id + message.guild.id].money = 100;
 if (!userData[sender.id + message.guild.id].lastDaily) userData[sender.id + message.guild.id].lastDaily = 'Not Collected';
+if (!userData[sender.id + message.guild.id].lastWork) userData[sender.id + message.guild.id].lastWork = 'Not Collected';
 
 fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
 	if (err) console.error(err);
@@ -489,13 +490,20 @@ if (userData[sender.id + message.guild.id].lastDaily != moment().format('L')) {
 }
 }
 if(command === "work") {
-if (userData[sender.id + message.guild.id].lastDaily != moment().format('L')) {
-	userData[sender.id + message.guild.id].lastDaily = moment().format('L')
+if (userData[sender.id + message.guild.id].lastWork != moment().format('L')) {
+	userData[sender.id + message.guild.id].lastWork = moment().format('L')
 	userData[sender.id + message.guild.id].money += 100;
 	message.channel.send({embed:{
 		title:"You worked and got 100$",
 		description"You got 100$ in your account",
 	}})
+}
+} else {
+	message.channel.send({embed:{
+		title:"Work",
+		description:"You already worked today, you can work again in " + moment().endOf('day').fromNow() + '.'
+	}})
+}
 }
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
