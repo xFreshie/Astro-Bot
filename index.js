@@ -495,7 +495,7 @@ if (userData[sender.id + message.guild.id].lastWork != moment().format('L')) {
 	userData[sender.id + message.guild.id].money += 100;
 	message.channel.send({embed:{
 		title:"You worked and got 100$",
-		description"You got 100$ in your account",
+		description:"You got 100$ in your account",
 	}})
 }
 } else {
