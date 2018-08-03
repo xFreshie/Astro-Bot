@@ -450,6 +450,7 @@ if (client.user.id === message.author.id) { return }
 //
 if (!userData[sender.id + message.guild.id]) userData[sender.id + message.guild.id] = {}
 if (!userData[sender.id + message.guild.id].money) userData[sender.id + message.guild.id].money = 100;
+if (!userData[sender.id + message.guild.id].lastDaily) userData[sender.id + message.guild.id].lastDaily = 'Not Collected';
 
 fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
 	if (err) console.error(err);
@@ -470,6 +471,21 @@ if(command === "balance") {
 			inline:true
 		}]
 	}})
+}
+if(command === "daily") {
+if (userData[sender.id + message.guild.id].lastDaily != moment().format('L')) {
+	userData[sender.id + message.guild.id].lastDaily = moment().format('L')
+	userData[sender.id + message.guild.id].money = 500;
+	message.channel.send({embed:{
+		title:"Daily Reward",
+		description:"You got $500 added to your account.",
+	}})
+} else {
+	message.channel.send({embed:{
+		title:"Daily Reward",
+		description:"You already claimed your daily reward, you can collect your next reward " + moment().endOf('day').fromNow() + '.'
+	}})
+}
 }
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
