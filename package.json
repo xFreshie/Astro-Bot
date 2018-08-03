@@ -32,7 +32,9 @@
     
     "file-system": "2.2.2",
     
-    "moment": "2.22.2"
+    "moment": "2.22.2",
+    
+    "discord-eco": "0.0.10"
 
   }
 
