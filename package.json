@@ -28,7 +28,9 @@
     
     "ytdl-core": "0.22.0",
     
-    "simple-youtube-api": "5.0.2"
+    "simple-youtube-api": "5.0.2",
+    
+    "file-system": "2.2.2"
 
   }
 
