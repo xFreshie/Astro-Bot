@@ -8,14 +8,9 @@ const client = new Discord.Client();
 const ms = require("ms");
 const send = require("quick.hook");
 const superagent = require("superagent");
-const YouTube = require('simple-youtube-api');
-const ytdl = require('ytdl-core');
-const youtube = new YouTube('AIzaSyCImyrjQ2Y0ZKTAoJem4vvLUoeL8rt1a_E');
-const queue = new Map();
+const fs = require("fs");
 
-var servers = {};
-
-
+let userData = JSON.parse(fs.readFileSync('Storage/userData.json', 'utf8'));
 // Here we load the config.json file that contains our token and our prefix values. 
 const config = require("./config.json");
 // config.token contains the bot's token
@@ -59,7 +54,6 @@ client.on("message", async message => {
   // args = ["Is", "this", "the", "real", "life?"]
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-  
   // Let's go with a few common example commands! Feel free to delete or change those.
   
   if(command === "ping") {
@@ -451,6 +445,33 @@ if(command === "report") {
             reportschannel.send(reportEmbed);
 	message.channel.send("User successfuly reported.");
 }
+let sender = message.author;
+if (bot.user.id === message.author.id) { return }
+//
+if (!userData[sender.id + message.guild.id]) userData[sender.id + message.guild.id] = {}
+if (!userData[sender.id + message.guild.id].money) userData[sender.id + message.guild.id].money = 100;
+
+fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) -> {
+	if (err) console.error(err);
+})
+//
+if(command === "money" || === "balance") {
+	message.channel.send({embed:{
+		title: "Bank Account",
+		color: RANDOM,
+		fields: [{
+			name:"Account Holder",
+			value:message.author.username,
+			inline:true
+		},
+		{
+			name:"Account Balance",
+			value:userData[sender.id + message.guild.id].money,
+			inline:true
+		}]
+	}})
+}
+  
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
 let initialMessage = `**React to the messages below to receive the verified role, this is in case of spam bots or stuff. If you would like to chat in other channels, simply react to the message.**`;
