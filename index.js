@@ -488,6 +488,15 @@ if (userData[sender.id + message.guild.id].lastDaily != moment().format('L')) {
 	}})
 }
 }
+if(command === "work") {
+if (userData[sender.id + message.guild.id].lastDaily != moment().format('L')) {
+	userData[sender.id + message.guild.id].lastDaily = moment().format('L')
+	userData[sender.id + message.guild.id].money += 100;
+	message.channel.send({embed:{
+		title:"You worked and got 100$",
+		description"You got 100$ in your account",
+	}})
+}
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
 let initialMessage = `**React to the messages below to receive the verified role, this is in case of spam bots or stuff. If you would like to chat in other channels, simply react to the message.**`;
