@@ -1,1 +1,14 @@
-{}
+{
+	"Memer": {
+		"name":"Memer Role",
+		"type":"Role",
+		"price":"5000",
+		"desc":"Buying this will give you the memer role."
+	},
+	"Custom Role": {
+		"name":"Custom role",
+		"type":"Role",
+		"price":"2000000",
+		"desc":"After buying this, contact a staff member so they can give you your role."
+	}
+}
