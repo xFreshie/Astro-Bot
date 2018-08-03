@@ -476,7 +476,7 @@ if(command === "balance") {
 if(command === "daily") {
 if (userData[sender.id + message.guild.id].lastDaily != moment().format('L')) {
 	userData[sender.id + message.guild.id].lastDaily = moment().format('L')
-	userData[sender.id + message.guild.id].money = 500;
+	userData[sender.id + message.guild.id].money += 500;
 	message.channel.send({embed:{
 		title:"Daily Reward",
 		description:"You got $500 added to your account.",
