@@ -500,7 +500,7 @@ if (userData[sender.id + message.guild.id].lastWork != moment().format('L')) {
 } else {
 	message.channel.send({embed:{
 		title:"Work",
-		description:"You already worked today, you can work again in " + moment().endOf('day').fromNow() + '.'
+		description:"You already worked today, you can work again " + moment().endOf('hour').fromNow() + '.'
 	}})
 }
 }
