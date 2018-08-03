@@ -9,9 +9,10 @@ const ms = require("ms");
 const send = require("quick.hook");
 const superagent = require("superagent");
 const fs = require("fs");
+const economy = require('discord-eco');
 const moment = require("moment");
 
-let userData = JSON.parse(fs.readFileSync('Storage/userData.json', 'utf8'));
+const items = JSON.parse(fs.readFileSync('Storage\items.json', 'utf8'));
 // Here we load the config.json file that contains our token and our prefix values. 
 const config = require("./config.json");
 // config.token contains the bot's token
@@ -446,64 +447,144 @@ if(command === "report") {
             reportschannel.send(reportEmbed);
 	message.channel.send("User successfuly reported.");
 }
-let sender = message.author;
-if (client.user.id === message.author.id) { return }
 //
-if (!userData[sender.id + message.guild.id]) userData[sender.id + message.guild.id] = {}
-if (!userData[sender.id + message.guild.id].money) userData[sender.id + message.guild.id].money = 100;
-if (!userData[sender.id + message.guild.id].lastDaily) userData[sender.id + message.guild.id].lastDaily = 'Not Collected';
-if (!userData[sender.id + message.guild.id].lastWork) userData[sender.id + message.guild.id].lastWork = 'Not Collected';
+if(command === "buy") {
+        // Variables
+        let categories = []; // Lets define categories as an empty array so we can add to it.
 
-fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
-	if (err) console.error(err);
-})
-//
-if(command === "balance") {
-	message.channel.send({embed:{
-		title: "Bank Account",
-		color: 0xF1C40F,
-		fields: [{
-			name:"Account Holder",
-			value:message.author.username,
-			inline:true
-		},
-		{
-			name:"Account Balance",
-			value:userData[sender.id + message.guild.id].money,
-			inline:true
-		}]
-	}})
-}
-if(command === "daily") {
-if (userData[sender.id + message.guild.id].lastDaily != moment().format('L')) {
-	userData[sender.id + message.guild.id].lastDaily = moment().format('L')
-	userData[sender.id + message.guild.id].money += 500;
-	message.channel.send({embed:{
-		title:"Daily Reward",
-		description:"You got $500 added to your account.",
-	}})
-} else {
-	message.channel.send({embed:{
-		title:"Daily Reward",
-		description:"You already claimed your daily reward, you can collect your next reward " + moment().endOf('day').fromNow() + '.'
-	}})
-}
-}
-if(command === "work") {
-if (userData[sender.id + message.guild.id].lastWork != moment().format('L')) {
-	userData[sender.id + message.guild.id].lastWork = moment().format('L')
-	userData[sender.id + message.guild.id].money += 100;
-	message.channel.send({embed:{
-		title:"You worked and got 100$",
-		description:"You got 100$ in your account",
-	}})
-} else {
-	message.channel.send({embed:{
-		title:"Work",
-		description:"You already worked today, you can work again " + moment().endOf('hour').fromNow() + '.'
-	}})
-}
-}
+        // We want to make it so that if the item is not specified it shows a list of items
+        if (!args.join(" ")) { // Run if no item specified...
+
+            // First, we need to fetch all of the categories.
+            for (var i in items) { // We can do this by creating a for loop.
+
+                // Then, lets push the category to the array if it's not already in it.
+                if (!categories.includes(items[i].type)) {
+                    categories.push(items[i].type)
+                }
+
+            }
+
+            // Now that we have the categories we can start the embed
+            const embed = new Discord.RichEmbed()
+                .setDescription(`Available Items`)
+                .setColor(0xD4AF37)
+
+            for (var i = 0; i < categories.length; i++) { // This runs off of how many categories there are. - MAKE SURE YOU DELETE THAT = IF YOU ADDED IT.
+
+                var tempDesc = '';
+
+                for (var c in items) { // This runs off of all commands
+                    if (categories[i] === items[c].type) {
+
+                        tempDesc += `${items[c].name} - $${items[c].price} - ${items[c].desc}\n`; // Remember that \n means newline
+
+                    }
+
+                }
+
+                // Then after it adds all the items from that category, add it to the embed
+                embed.addField(categories[i], tempDesc);
+
+            }
+
+            // Now we need to send the message, make sure it is out of the for loop.
+            return message.channel.send({
+                embed
+            }); // Lets also return here.
+
+            // Lets test it! x2
+
+        }
+
+        // Buying the item.
+
+        // Item Info
+        let itemName = '';
+        let itemPrice = 0;
+        let itemDesc = '';
+
+        for (var i in items) { // Make sure you have the correct syntax for this.
+            if (args.join(" ").trim().toUpperCase() === items[i].name.toUpperCase()) { // If item is found, run this...
+                itemName = items[i].name;
+                itemPrice = items[i].price;
+                itemDesc = items[i].desc;
+            }
+        }
+
+        // If the item wasn't found, itemName won't be defined
+        if (itemName === '') {
+            return message.channel.send(`**Item ${args.join(" ").trim()} not found.**`)
+        }
+
+        // Now, lets check if they have enough money.
+        economy.fetchBalance(message.author.id + message.guild.id).then((i) => { // Lets fix a few errors - If you use the unique guild thing, do this.
+            if (i.money <= itemPrice) { // It's supposed to be like this instead...
+
+                return message.channel.send(`**You don't have enough money for this item.**`);
+            }
+
+            economy.updateBalance(message.author.id + message.guild.id, parseInt(`-${itemPrice}`)).then((i) => {
+
+                message.channel.send('**You bought ' + itemName + '!**');
+
+                // You can have IF statements here to run something when they buy an item.
+                if (itemName === 'Memer Role') {
+                    message.guild.members.get(message.author.id).addRole(message.guild.roles.find("name", "Memer")); // For example, when they buy the helper role it will give them the helper role.
+                }
+
+            })
+
+        })
+
+    }
+if(command === "balset") {
+       // Check if they have the modRole
+if (!message.member.hasPermission('MANAGE_CHANNELS')) return message.channel.send(`Sorry, you don't have enough permissions.`);
+        // Check if they defined an amount
+        if (!args[0]) {
+            message.channel.send(`**You need to define an amount. Usage: a!balset <amount> <user>**`);
+            return;
+        }
+
+        // We should also make sure that args[0] is a number
+        if (isNaN(args[0])) {
+            message.channel.send(`**The amount has to be a number. Usage: a!balset <amount> <user>**`);
+            return; // Remember to return if you are sending an error message! So the rest of the code doesn't run.
+        }
+
+        // Check if they defined a user
+        let defineduser = '';
+        if (!args[1]) { // If they didn't define anyone, set it to their own.
+            defineduser = message.author.id;
+        } else { // Run this if they did define someone...
+            let firstMentioned = message.mentions.users.first();
+            defineduser = firstMentioned.id;
+        }
+
+        // Finally, run this.. REMEMBER IF you are doing the guild-unique method, make sure you add the guild ID to the end,
+        economy.updateBalance(defineduser + message.guild.id, parseInt(args[0])).then((i) => { // AND MAKE SURE YOU ALWAYS PARSE THE NUMBER YOU ARE ADDING AS AN INTEGER
+            message.channel.send(`**User defined had ${args[0]} added/subtraction from their account.**`)
+        });
+
+    }
+if(command === "balance" || === "bal" || === "money") {
+        economy.fetchBalance(message.author.id + message.guild.id).then((i) => { // economy.fetchBalance grabs the userID, finds it, and puts the data with it into i.
+            // Lets use an embed for This
+            const embed = new Discord.RichEmbed()
+                .setDescription(`**${message.guild.name} Bank**`)
+                .setColor(0xD4AF37) // You can set any HEX color if you put 0x before it.
+                .addField('Account Holder', message.author.username, true) // The TRUE makes the embed inline. Account Holder is the title, and message.author is the value
+                .addField('Account Balance', i.money, true)
+
+            // Now we need to send the message
+            message.channel.send({
+                embed
+            })
+
+        })
+
+    }
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
 let initialMessage = `**React to the messages below to receive the verified role, this is in case of spam bots or stuff. If you would like to chat in other channels, simply react to the message.**`;
