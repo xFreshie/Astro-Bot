@@ -451,11 +451,11 @@ if (bot.user.id === message.author.id) { return }
 if (!userData[sender.id + message.guild.id]) userData[sender.id + message.guild.id] = {}
 if (!userData[sender.id + message.guild.id].money) userData[sender.id + message.guild.id].money = 100;
 
-fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) -> {
+fs.writeFile('Storage/userData.json', JSON.stringify(userData), (err) => {
 	if (err) console.error(err);
 })
 //
-if(command === "money" || === "balance") {
+if(command === "balance") {
 	message.channel.send({embed:{
 		title: "Bank Account",
 		color: RANDOM,
@@ -471,7 +471,6 @@ if(command === "money" || === "balance") {
 		}]
 	}})
 }
-  
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
 let initialMessage = `**React to the messages below to receive the verified role, this is in case of spam bots or stuff. If you would like to chat in other channels, simply react to the message.**`;
