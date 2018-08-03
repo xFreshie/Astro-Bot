@@ -443,12 +443,13 @@ if(command === "report") {
                 .addField("•Time", message.createdAt)
                 .addField("•Reason", rreason);
 
-            var reportschannel = message.guild.channels.find(`name`, "mod-log");
-            if (!reportschannel) return message.channel.send("**Can't find mod-log channel.**");
+            var reportschannel = message.guild.channels.find(`name`, "discord-reports");
+            if (!reportschannel) return message.channel.send("**Can't find discord-reports channel.**");
 
 
             message.delete().catch(O_o => { });
             reportschannel.send(reportEmbed);
+	message.channel.send("User successfuly reported.");
 }
 const yourID = "427858680550260736";
 const setupCMD = "a!reactroles"
